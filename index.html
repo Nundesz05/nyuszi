@@ -40,16 +40,16 @@
         }
     </style>
     <script>
-
+        let t=[];
+        let repa=0;
         function start() {
-            let html="";
-            let t=[];
+            let html=""; 
             let kutya=20;
             for(let s=0;s<9;s++) {
                 t[s]=[]
                 for(let o=0;o<12;o++) {
                 t[s][o]="repa";
-                html+="<img src='repa.png' id='"+s+"x"+o+"'>";
+                html+="<img src='repa.png' id='"+s+"x"+o+"'  onclick=katt("+s+","+o+") >";
                 }
             }
             document.getElementById("main").innerHTML=html;
@@ -76,6 +76,54 @@
             }
         }
 
+        function katt(s,o){
+            if(t[s][o]=="repa") {
+                
+                if(s>0&&t[s-1][o]=="nyuszi") {
+                    setKep(s,o,"nyuszi");
+                    t[s-1][o]="ures";
+                    t[s][o]="nyuszi";
+                    setKep(s-1,o,"ures");
+                    repa++;
+                }
+                else if(s<8&&t[s+1][o]=="nyuszi" ) {
+                    setKep(s,o,"nyuszi");
+                    t[s+1][o]="ures";
+                    t[s][o]="nyuszi";
+                    setKep(s+1,o,"ures");
+                    repa++;
+                }
+                else if(o>0&&t[s][o-1]=="nyuszi" ) {
+                    setKep(s,o,"nyuszi");
+                    t[s][o-1]="ures";
+                    t[s][o]="nyuszi";
+                    setKep(s,o-1,"ures");
+                    repa++;
+                }
+                else if( o<11&&t[s][o+1]=="nyuszi") {
+                    setKep(s,o,"nyuszi");
+                    t[s][o+1]="ures";
+                    t[s][o]="nyuszi";
+                    setKep(s,o+1,"ures");
+                    repa++;
+                }
+            }
+            else if(t[s][o]=="ures"&& repa>0) {
+                t[s][o]="repa";
+                setKep(s,o,"repa");
+                repa--;
+            }
+            if(repa==87) {
+                alert("Győztél!");
+            }
+            darabszam();
+            console.log(t[s][o]);
+        }
+
+
+        function darabszam() {
+            document.getElementById("db").innerHTML=repa;
+        }
         function setKep(s,o,kep) {
             document.getElementById(s+"x"+o).src=kep+".png";
         }
@@ -83,7 +131,7 @@
 </head>
 <body onload="start()">
     <div id="main"></div>
-    <div class="status" id="repa1"><img src="repa.png"> <span id="db">0</span> darab</div>
-    <div class="status" id="nyil"> <img src="ujra.png"></div>
+    <div class="status" id="repa1"><img src="repa.png" > <span id="db">0</span> darab</div>
+    <div class="status" id="nyil"> <img src="ujra.png" ></div>
 </body>
 </html>
