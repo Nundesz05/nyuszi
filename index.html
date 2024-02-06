@@ -18,10 +18,11 @@
             padding: 10px;
             width: 864px;
             height: 648px;
-            
+            font-size: 0pt;
         }
         #main img:hover{
             background-color: #99ccff;
+            
         }
         .status {
             display: inline-block;
@@ -38,8 +39,49 @@
             float: right;
         }
     </style>
+    <script>
+
+        function start() {
+            let html="";
+            let t=[];
+            let kutya=20;
+            for(let s=0;s<9;s++) {
+                t[s]=[]
+                for(let o=0;o<12;o++) {
+                t[s][o]="repa";
+                html+="<img src='repa.png' id='"+s+"x"+o+"'>";
+                }
+            }
+            document.getElementById("main").innerHTML=html;
+            let randoms=Math.floor(Math.random()*9);
+            let randomo=Math.floor(Math.random()*12);        
+            if(t[randoms][randomo]=="repa") {
+                setKep(randoms,randomo,"nyuszi");
+                t[randoms][randomo]="nyuszi";
+            }
+           
+            for(let s=0;s<9;s++) {
+                for(let o=0;o<12;o++) { 
+                    while(kutya !=0) {
+                        let random1=Math.floor(Math.random()*9);
+                        let random2=Math.floor(Math.random()*12);
+                        if(t[random1][random2]=="repa" ) {
+                        setKep(random1,random2,"kutya");
+                        t[random1][random2]="kutya";
+                        kutya--;
+                        }
+                    }        
+                   
+                }
+            }
+        }
+
+        function setKep(s,o,kep) {
+            document.getElementById(s+"x"+o).src=kep+".png";
+        }
+    </script>
 </head>
-<body>
+<body onload="start()">
     <div id="main"></div>
     <div class="status" id="repa1"><img src="repa.png"> <span id="db">0</span> darab</div>
     <div class="status" id="nyil"> <img src="ujra.png"></div>
