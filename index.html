@@ -120,6 +120,13 @@
             console.log(t[s][o]);
         }
 
+        function reset(){
+            repa=0;
+            t=[];
+            darabszam();
+            start();
+            
+        }
 
         function darabszam() {
             document.getElementById("db").innerHTML=repa;
@@ -132,6 +139,6 @@
 <body onload="start()">
     <div id="main"></div>
     <div class="status" id="repa1"><img src="repa.png" > <span id="db">0</span> darab</div>
-    <div class="status" id="nyil"> <img src="ujra.png" ></div>
+    <div class="status" id="nyil"> <img src="ujra.png" onclick="reset()"></div>
 </body>
 </html>
